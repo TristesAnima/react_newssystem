@@ -16,11 +16,16 @@ export default function UserList() {
   const updateForm = useRef(null)
   const [isUpdateDisabled, setisUpdateDisabled] = useState(false)
   const [current, setCurrent] = useState(null)
-
+  const { roleId, region, username } = JSON.parse(localStorage.getItem('token'))
+  const roleObj = {
+    1: 'superadmin',
+    2: 'admin',
+    3: 'editor',
+  }
   // 获取权限列表
   const getUserList = () => {
     React.$api.getUserList().then((res) => {
-      setDataSource(res)
+      setDataSource(roleObj[roleId] === 'superadmin' ? res : [...res.filter((item) => item.username === username), ...res.filter((item) => item.region === region && roleObj[item.roleId] === 'editor')])
     })
   }
 
@@ -40,7 +45,8 @@ export default function UserList() {
     getUserList()
     getRoleList()
     getRegionList()
-  }, [])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[])
 
   const columns = [
     {
@@ -53,8 +59,8 @@ export default function UserList() {
         })),
         { text: '全球', value: '全球' },
       ],
-      onFilter: (value, item) =>{
-        if (value==='全球') {
+      onFilter: (value, item) => {
+        if (value === '全球') {
           return item.region === ''
         }
         return item.region === value
@@ -250,7 +256,7 @@ export default function UserList() {
           updateFormOk()
         }}
       >
-        <UserForm ref={updateForm} regionList={regionList} roleList={roleList} isUpdateDisabled={isUpdateDisabled}></UserForm>
+        <UserForm ref={updateForm} isUpdate={true} regionList={regionList} roleList={roleList} isUpdateDisabled={isUpdateDisabled}></UserForm>
       </Modal>
     </div>
   )

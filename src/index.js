@@ -1,10 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import axios from 'axios'
+import axiosinit from './utils/js/http.js'
 import App from './App'
 import * as api from './utils/js/api.js'
+import dayjs from 'dayjs'
 
-axios.defaults.baseURL = 'http://localhost:8000'
+React.$axios = axiosinit
 React.$api = api
+React.$dayjs = dayjs
 
 ReactDOM.render(<App />, document.getElementById('root'))
