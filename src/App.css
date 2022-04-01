@@ -1,9 +1,5 @@
 @import '~antd/dist/antd.css';
 
-* {
-  user-select: none;
-}
-
 #root{
   height: 100%;
 }

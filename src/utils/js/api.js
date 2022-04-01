@@ -189,3 +189,20 @@ export const getCateGory = async () => {
 export const deleteCateGory = async (id) => {
   React.$axios.delete(`/categories/${id}`)
 }
+
+
+// Home
+export const getMostView = async () => {
+  const { data: res } = await React.$axios.get(`/news?publishState=2&_expand=category&_sort=view&_order=desc&_limit=6`)
+  return res
+}
+
+export const getGood = async () => {
+  const { data: res } = await React.$axios.get(`/news?publishState=2&_expand=category&_sort=star&_order=desc&_limit=6`)
+  return res
+}
+
+export const getEchInfo = async () => {
+  const { data: res } = await React.$axios.get(`/news?publishState=2&_expand=category`)
+  return res
+}

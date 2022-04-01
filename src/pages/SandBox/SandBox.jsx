@@ -16,19 +16,19 @@ function SandBox(props) {
       <SideMenu></SideMenu>
       <Layout className="site-layout">
         <TopHeader></TopHeader>
-        <Spin size="large" spinning={props.isLoading}>
-          <Content
-            className="site-layout-background"
-            style={{
-              margin: '24px 16px',
-              padding: 24,
-              minHeight: 280,
-              overflow: 'auto',
-            }}
-          >
+        <Content
+          className="site-layout-background"
+          style={{
+            margin: '24px 16px',
+            padding: 24,
+            minHeight: 280,
+            overflow: 'auto',
+          }}
+        >
+          <Spin size="large" spinning={props.isLoading}>
             <Outlet></Outlet>
-          </Content>
-        </Spin>
+          </Spin>
+        </Content>
       </Layout>
     </Layout>
   )
